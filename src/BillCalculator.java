@@ -134,15 +134,20 @@ public class BillCalculator {
 
     /** 부가가치세(원미만 4사 5입): 전기요금 X 10% */
     public static double vat(double elecTariff){
-        double result = round(elecTariff * 0.1);
-        return result;
+        double vatResult = round(elecTariff * 0.1);
+        return vatResult;
     }
 
     /** 전력사업기반기금(10원 미만 절사): 전기요금 X 3.7% */
     public static double industryFund(double elecTariff){
+        /*
         BigDecimal cutOff = new BigDecimal(elecTariff  * 0.037);
         cutOff =cutOff.setScale(-1, BigDecimal.ROUND_FLOOR); // 10원 미만 절사
-        double result = cutOff.doubleValue(); // double로 형 변환
-        return result;
+        double fundResult = cutOff.doubleValue(); // double로 형 변환
+         */
+        double fundResult = elecTariff  * 0.037;
+        fundResult = round(fundResult * 0.1) * 10;
+
+        return fundResult;
     }
 }

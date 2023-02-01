@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6313c15-95f8-4726-b2d3-be3b62306a64" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/electricity-bill-caluculator.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BillCalculator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/readMe.md" afterDir="false" />
+    <list default="true" id="a6313c15-95f8-4726-b2d3-be3b62306a64" name="Changes" comment="2023년 1월 기준 가정용 전기요금 계산기">
+      <change beforePath="$PROJECT_DIR$/src/BillCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BillCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,8 +52,16 @@
       <option name="presentableId" value="Default" />
       <updated>1675218529454</updated>
       <workItem from="1675218530824" duration="3939000" />
-      <workItem from="1675222707885" duration="15052000" />
+      <workItem from="1675222707885" duration="15684000" />
     </task>
+    <task id="LOCAL-00001" summary="2023년 1월 기준 가정용 전기요금 계산기">
+      <created>1675238329800</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1675238329801</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -77,5 +77,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="2023년 1월 기준 가정용 전기요금 계산기" />
+    <option name="LAST_COMMIT_MESSAGE" value="2023년 1월 기준 가정용 전기요금 계산기" />
   </component>
 </project>
