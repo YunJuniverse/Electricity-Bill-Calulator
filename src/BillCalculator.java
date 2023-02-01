@@ -50,60 +50,63 @@ public class BillCalculator {
         System.out.println("예) 6월달 전력량이 321kWh인 경우 -> \"6월 321\"");
 
         Scanner input = new Scanner(System.in);
-        String inputValue = input.nextLine();
 
-        String pattern = "^[0-9]*월 [0-9]*$";
-        boolean regex = Pattern.matches(pattern, inputValue);
-        //예외처리
-        if(!regex){
-            System.out.println("잘못된 입력입니다. 올바른 예: 2월 27");
-            System.out.println("날짜(월)와 전력량 사이에 띄어쓰기 1개가 들어가야 합니다.");
+        while (input.hasNextLine()) {
+            String inputValue = input.nextLine();
+            String pattern = "^[0-9]*월 [0-9]*$";
+            boolean regex = Pattern.matches(pattern, inputValue);
+            //예외처리
+            if (!regex) {
+                System.out.println("잘못된 입력입니다. 올바른 예: 2월 27");
+                System.out.println("날짜(월)와 전력량 사이에 띄어쓰기 1개가 들어가야 합니다.");
+            }
+
+            //콘솔 입력값에 따른 데이터셋 값 적용(계절, 전력량)
+            String[] parts = inputValue.split(" ");
+            String seasonFromConsol = parts[0];
+            String energyFromConsol = parts[1];
+
+
+            if (seasonFromConsol.equals("7월") || seasonFromConsol.equals("8월")) season = true;
+            energy = Double.parseDouble(energyFromConsol);
+
+            /** 2. 월별 구간별 기본요금-추가요금 나누기 */
+            charge(season);
+
+            /** 3. 기후환경요금 / 연료비조정요금 계산 */
+            climateCharge = climateCharge * energy;
+            fuelCostCharge = fuelCostCharge * energy;
+
+            /** 4. 전기 요금 계산 */
+            elecTariff = demandCharge + (energy * energyCharge) + climateCharge + fuelCostCharge;
+
+            /** 5. 청구금액 계산 */
+            elecBill = elecTariff + vat(elecTariff) + industryFund(elecTariff);
+
+            // 10원미만 절사
+            elecBill = elecBill * 0.1;
+            elecBill = floor(elecBill) * 10;
+
+            /** 6. 콘솔출력 */
+            String stringForSeason;
+            if (season) stringForSeason = "하계";
+            else stringForSeason = "일반";
+
+
+            System.out.println("계절: " + stringForSeason);
+            System.out.println("전력량: " + energy + "kWh");
+            System.out.println("기본요금: " + demandCharge);
+            System.out.println("kWh당 전력량 요금: " + energyCharge);
+            System.out.println("총 전력량 요금: " + energy * energyCharge);
+            System.out.println("기후환경요금: " + climateCharge);
+            System.out.println("연료비조정요금: " + fuelCostCharge);
+            System.out.println("전기요금: " + elecTariff);
+            System.out.println("부가가치세: " + vat(elecTariff));
+            System.out.println("전력사업기반기금: " + industryFund(elecTariff));
+            System.out.println("첨구금액: " + elecBill);
         }
-
-        //콘솔 입력값에 따른 데이터셋 값 적용(계절, 전력량)
-        String[] parts = inputValue.split(" ");
-        String seasonFromConsol = parts[0];
-        String energyFromConsol = parts[1];
-
-
-        if (seasonFromConsol.equals("7월") || seasonFromConsol.equals("8월")) season = true;
-        energy = Double.parseDouble(energyFromConsol);
-
-        /** 2. 월별 구간별 기본요금-추가요금 나누기 */
-        charge(season);
-
-        /** 3. 기후환경요금 / 연료비조정요금 계산 */
-        climateCharge = climateCharge * energy;
-        fuelCostCharge = fuelCostCharge * energy;
-
-        /** 4. 전기 요금 계산 */
-        elecTariff = demandCharge + (energy * energyCharge) + climateCharge + fuelCostCharge;
-
-        /** 5. 청구금액 계산 */
-        elecBill = elecTariff + vat(elecTariff) + industryFund(elecTariff);
-
-        // 10원미만 절사
-        elecBill = elecBill * 0.1;
-        elecBill = floor(elecBill) * 10;
-
-        /** 6. 콘솔출력 */
-        String stringForSeason;
-        if (season) stringForSeason = "하계";
-        else stringForSeason = "일반";
-
-
-        System.out.println("계절: " + stringForSeason);
-        System.out.println("전력량: " + energy + "kWh");
-        System.out.println("기본요금: " + demandCharge);
-        System.out.println("kWh당 전력량 요금: " + energyCharge);
-        System.out.println("총 전력량 요금: " + energy * energyCharge);
-        System.out.println("기후환경요금: " + climateCharge);
-        System.out.println("연료비조정요금: " + fuelCostCharge);
-        System.out.println("전기요금: " + elecTariff);
-        System.out.println("부가가치세: " + vat(elecTariff));
-        System.out.println("전력사업기반기금: " + industryFund(elecTariff));
-        System.out.println("첨구금액: " + elecBill);
     }
+
 
     /** 기본요금, 구간별 전력 요금 계산 메서드 */
     public static void charge(boolean season){
